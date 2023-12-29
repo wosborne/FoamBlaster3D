@@ -1,0 +1,101 @@
+[gd_scene load_steps=15 format=3 uid="uid://u0kmp2fwr20h"]
+
+[ext_resource type="Script" path="res://src/scenes/world/world.gd" id="1_0de76"]
+[ext_resource type="PackedScene" uid="uid://dcvekfp8m4gex" path="res://src/scenes/actors/player/player.tscn" id="1_vntxe"]
+[ext_resource type="PackedScene" uid="uid://hd36v6uoia20" path="res://src/assets/bathroomCabinet.glb" id="3_ux6gn"]
+[ext_resource type="PackedScene" uid="uid://cas0n7wgqc5et" path="res://src/assets/chair.glb" id="4_aqifw"]
+[ext_resource type="PackedScene" uid="uid://do8gcx2qhd1rx" path="res://src/assets/floorFull.glb" id="5_27rvo"]
+[ext_resource type="PackedScene" uid="uid://w1cnqi3atqmm" path="res://src/assets/rugDoormat.glb" id="6_q5i3a"]
+[ext_resource type="PackedScene" uid="uid://dqqort6iorcs2" path="res://src/assets/bedDouble.glb" id="7_ldy7m"]
+[ext_resource type="PackedScene" uid="uid://b0svh1oxfsfu5" path="res://src/assets/lampRoundFloor.glb" id="8_6g0hb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nyupq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_m5vno"]
+sky_material = SubResource("ProceduralSkyMaterial_nyupq")
+
+[sub_resource type="Environment" id="Environment_02pqy"]
+background_mode = 2
+sky = SubResource("Sky_m5vno")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggxve"]
+albedo_color = Color(0.184314, 0.184314, 0.184314, 1)
+metallic = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ios3d"]
+albedo_color = Color(0.921569, 0.537255, 0.447059, 1)
+metallic = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dlbe"]
+albedo_color = Color(0.32549, 0.396078, 0.596078, 1)
+metallic = 1.0
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_0de76")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_02pqy")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ggxve")
+use_collision = true
+size = Vector3(32, 0.002, 32)
+
+[node name="Player" parent="." instance=ExtResource("1_vntxe")]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
+material_override = SubResource("StandardMaterial3D_ios3d")
+use_collision = true
+size = Vector3(1, 8, 32)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -16)
+material_override = SubResource("StandardMaterial3D_ios3d")
+use_collision = true
+size = Vector3(1, 8, 32)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 16, 0, 0)
+material_override = SubResource("StandardMaterial3D_ios3d")
+use_collision = true
+size = Vector3(1, 8, 32)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -1.90735e-06, 0, 16)
+material_override = SubResource("StandardMaterial3D_ios3d")
+use_collision = true
+size = Vector3(1, 8, 32)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_0dlbe")
+use_collision = true
+radius = 2.0
+height = 1.0
+
+[node name="bathroomCabinet" parent="." instance=ExtResource("3_ux6gn")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -4, 0, 6)
+
+[node name="chair" parent="." instance=ExtResource("4_aqifw")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -4)
+
+[node name="floorFull" parent="." instance=ExtResource("5_27rvo")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -2, 0, -3)
+
+[node name="rugDoormat" parent="." instance=ExtResource("6_q5i3a")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 0, 1)
+
+[node name="bedDouble" parent="." instance=ExtResource("7_ldy7m")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -7, 0, 1)
+
+[node name="lampRoundFloor" parent="." instance=ExtResource("8_6g0hb")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -7, 0, 2)
